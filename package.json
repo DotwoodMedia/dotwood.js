@@ -1,0 +1,29 @@
+{
+  "name": "dotwood.js",
+  "version": "1.1.0",
+  "description": "This framework makes creating a bot much easier! With this module you can create a good basis for bot",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DotwoodMedia/dotwood.js.git"
+  },
+  "keywords": [
+    "discord.js",
+    "framework",
+    "dbot"
+  ],
+  "author": "Dotwood Media",
+  "license": "Apache",
+  "bugs": {
+    "url": "https://github.com/DotwoodMedia/dotwood.js/issues"
+  },
+  "homepage": "https://github.com/DotwoodMedia/dotwood.js#readme",
+  "dependencies": {
+    "chalk": "^4.1.1",
+    "discord.js": "^12.5.3",
+    "fs": "0.0.1-security"
+  }
+}
