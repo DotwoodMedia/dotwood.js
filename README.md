@@ -1,8 +1,8 @@
 # Dotwood.js
 This framework makes creating a bot much easier! With this module you can create a good basis for bot
 
-<a href="https://www.npmjs.com/package/dotwood.js"><img src="https://img.shields.io/npm/v/dotwood.js.svg?maxAge=3600" alt="NPM version" /></a>
-<a href="https://www.npmjs.com/package/dotwood.js"><img src="https://img.shields.io/npm/dt/dotwood.js.svg?maxAge=3600" alt="NPM downloads" /></a>
+[![downloadsBadge](https://img.shields.io/npm/dt/dotwood.js?style=for-the-badge)](https://npmjs.com/dotwood.js)
+[![versionBadge](https://img.shields.io/npm/v/dotwood.js?style=for-the-badge)](https://npmjs.com/dotwood.js)
 
 # 💻 Installation
 
