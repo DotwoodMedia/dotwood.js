@@ -69,28 +69,28 @@ message.success("This is a success embed!", message.channel);
 ```
 
 ## logs
-- Message deleted
+- Message deleted <br />
 Notify me when a message is deleted
 ```
 client.messageDelete(ID);
 ```
 Enter the ID of the logs channel at ID
 
-- Message updated
+- Message updated <br />
 Notify me when a message is edited
 ```
 client.messageUpdate(ID);
 ```
 Enter the ID of the logs channel at ID
 
-- Ban add
+- Ban add <br />
 Notify me when someone gets banned
 ```
 client.banAdd(ID);
 ```
 Enter the ID of the logs channel at ID
 
-- Ban remove
+- Ban remove <br />
 Notify me when someone is no longer banned
 ```
 client.banRemove(ID);
