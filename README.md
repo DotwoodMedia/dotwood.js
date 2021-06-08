@@ -19,7 +19,7 @@ let client = new Dotwood.Client({
 client.login();
 ```
 
-3. Make a coomands folder with the name: "commands". Example:
+3. Make a commands folder with the name: "commands". Example:
 ``` 
 module.exports = {
     name: 'ping',
