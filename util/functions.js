@@ -27,6 +27,7 @@ module.exports = (message, client) => {
         if (desc) embed.setDescription(desc);
         if (image) embed.setImage(image);
         if (color) embed.setColor(color);
+        if (!color) embed.setColor(client.config.embedColor);
         if (footer) embed.setFooter(footer);
         return channel.send(embed)
     }
@@ -50,6 +51,8 @@ module.exports = (message, client) => {
     message.member.isOwner = () => {
         if (message.guild.ownerID == message.author.id) return true;
     }
+
+    return message;
 }
 
 // © Dotwood Media | All rights reserved
