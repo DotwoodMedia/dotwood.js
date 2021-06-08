@@ -6,7 +6,7 @@ module.exports = {
     startup: function () {
         console.log(chalk.green(`Loading bot...`));
         console.log("");
-        console.log(chalk.red(`DbotJS - ${require(`../package.json`).version}`));
+        console.log(chalk.red(`Dotwood.js - ${require(`../package.json`).version}`));
         console.log("");
         console.log(chalk.blue(`Created By </Pascal>#4627`));
         console.log(chalk.blue(`© Dotwood Media - 2021`));
@@ -14,43 +14,21 @@ module.exports = {
     },
 
     loadCommands: function (map = `${process.cwd()}/commands`) {
-        commandsList = new Discord.Collection();
+        commands = new Discord.Collection();
 
-        console.log("=============== Commands ===============");
+        fs.readdir("./commands", (err, files) => {
+            if (err) console.log(err);
+            var jsFiles = files.filter(f => f.split(".").pop() === "js");
+            if (jsFiles.length <= 0) {
+                return;
+            }
+            jsFiles.forEach((f, i) => {
+                const command = require(`${map}/${f}`);
+                commands.set(command.name.toLowerCase(), command);
+            })
+        });
 
-        try {
-            fs.readdir(map, (err, files) => {
-                if (err) console.log(err);
-                var jsFiles = files.filter(f => f.split(".").pop() === "js");
-                if (jsFiles.length <= 0) {
-                    return;
-                }
-                jsFiles.forEach((f, i) => {
-                    const command = require(`${map}/${f}`);
-                    console.log(chalk.green(`Loaded`, chalk.bold(`${command.name.toLowerCase()}`), `successfully`))
-                    commandsList.set(command.name.toLowerCase(), command);
-                })
-            });
-        }
-        catch { }
-
-        try {
-            fs.readdirSync(map).forEach(dirs => {
-                const commands = fs.readdirSync(`${map}/${dirs}`).filter(files => files.endsWith('.js'));
-                if (commands.length <= 0) {
-                    return;
-                }
-
-                console.log(chalk.green(`Loaded`, chalk.bold(`${commands.length} commands`), `of`, chalk.bold(`${dirs}`), `successfully`))
-                for (const file of commands) {
-                    const command = require(`${map}/${dirs}/${file}`);
-                    commandsList.set(command.name.toLowerCase(), command);
-                };
-            });
-        }
-        catch { }
-
-        return commandsList;
+        return commands;
     },
 
     loadEvents: function (map = `${process.cwd()}/events`) {

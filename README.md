@@ -49,49 +49,78 @@ new Dotwood.Client({
 ## Embeds
 - Send embed:
 ```
-client.embed.send({
+message.send({
     title: "hey!",
     desc: "pong!",
     color: "#0000ff"
-},  message.channel, message) 
+},  message.channel) 
 
 // All options: title, desc, image, color, footer
 ```
 
 - Error embed:
 ```
-client.embed.error("This is a error embed!", message.channel, message);
+message.error("This is a error embed!", message.channel);
 ```
 
 - Success embed:
 ```
-client.embed.success("This is a success embed!", message.channel, message);
+message.success("This is a success embed!", message.channel);
 ```
+
+## logs
+- Message deleted
+Notify me when a message is deleted
+```
+client.messageDelete(ID);
+```
+Enter the ID of the logs channel at ID
+
+- Message updated
+Notify me when a message is edited
+```
+client.messageUpdate(ID);
+```
+Enter the ID of the logs channel at ID
+
+- Ban add
+Notify me when someone gets banned
+```
+client.banAdd(ID);
+```
+Enter the ID of the logs channel at ID
+
+- Ban remove
+Notify me when someone is no longer banned
+```
+client.banRemove(ID);
+```
+Enter the ID of the logs channel at ID
 
 ## Other
 - getMember():
 ```
-client.function.getMember(message, args[0]);
+message.getMember(args[0]);
 ```
 
 - getChannel():
 ```
-client.function.getChannel(message, args[0]);
+message.getChannel(args[0]);
 ```
 
 - getRole():
 ```
-client.function.getRole(message, args[0]);
+message.getRole(args[0]);
 ```
 
 - isAdmin():
 ```
-client.function.isAdmin(message);
+message.member.isAdmin();
 ```
 
 - isOwner():
 ```
-client.function.isOwner(message);
+message.member.isOwner(message);
 ```
 
 # 📑 License
