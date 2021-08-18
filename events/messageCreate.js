@@ -1,8 +1,9 @@
 const Discord = require('discord.js');
 
 module.exports = async (client, message) => {
-    message = client.functions(message, client);
-    if (message.author.bot || message.channel.type === 'dm') return;
+    message = client.messageFunctions(message, client);
+
+    if (message.author.bot || message.channel.type === 'DM') return;
 
     const prefix = client.config.prefix;
 
@@ -19,7 +20,7 @@ module.exports = async (client, message) => {
 
     if (cmd) {
         cmd.run(client, message, this.args).catch(e => {
-            return message.error(e, message.channel);
+            return message.channel.send({ embeds: [message.embedError(e)] })
         })
     }
 }

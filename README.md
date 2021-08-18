@@ -4,124 +4,44 @@ This framework makes creating a bot much easier! With this module you can create
 [![downloadsBadge](https://img.shields.io/npm/dt/dotwood.js?style=for-the-badge)](https://npmjs.com/dotwood.js)
 [![versionBadge](https://img.shields.io/npm/v/dotwood.js?style=for-the-badge)](https://npmjs.com/dotwood.js)
 
-# 💻 Installation
+# ℹ️ - About
 
-1. Install module: `npm install dotwood.js`
-2. Make a index.js file. Example:
+Dotwood.js makes creating a bot even easier! With a few simple lines of code you can build your own bot very quickly
+- Discord.js version: V13.1.0
+- Simple functions
+
+# 💻 - Installation
+**Node.js 16.6.0 or newer is required.**
+
+```
+npm install dotwood.js
+```
+
+# 📖 - Example
 ```
 const Dotwood = require("dotwood.js");
+const Discord = require('discord.js');
 
-let client = new Dotwood.Client({
-    prefix: "!", // Bot prefix > !help, !test
-    token: "TOKEN" // Bot token
+const client = new Dotwood.Client({
+    token: "TOKEN", // Bot token
+    id: "ID", // Bot id
+    partials: ['MESSAGE', 'CHANNEL', 'GUILD_MEMBER', 'REACTION'], // Discord partials
+    intents: [
+        Discord.Intents.FLAGS.DIRECT_MESSAGES,
+        Discord.Intents.FLAGS.GUILDS,
+        Discord.Intents.FLAGS.GUILD_MESSAGES,
+        Discord.Intents.FLAGS.GUILD_VOICE_STATES,
+        Discord.Intents.FLAGS.GUILD_MESSAGE_REACTIONS
+    ], // Discord intents
 })
 
+client.setPrefix("!"); // Bot prefix > !help, !test
 client.login();
 ```
 
-3. Make a commands folder with the name: "commands". Example:
-``` 
-module.exports = {
-    name: 'ping',
-    description: 'See the bots ping in ms',
-    category: 'Example',
+# 🔗 - Links
+- Discord: https://discord.gg/dbot
+- Documentation: https://docs.dotwood.media/
 
-    run: async (client, message, args) => {
-        // Code here
-    },
-};
-```
-
-# ⚙ Options
-```
-new Dotwood.Client({
-    prefix: "!", // Bot prefix > !help, !test
-    token: "TOKEN" // Bot token
-    status: ["Dotwood.js"], // Bot status
-    statusType: "PLAYING", // Bot status type
-    embedColor: "#0000ff", // Color of a embed
-    commands: true, // enable or disable commands
-    events: true // enable or disable events
-})
-```
-
-# 🤖 All functions
-## Embeds
-- Send embed:
-```
-message.send({
-    title: "hey!",
-    desc: "pong!",
-    color: "#0000ff"
-},  message.channel) 
-
-// All options: title, desc, image, color, footer
-```
-
-- Error embed:
-```
-message.error("This is a error embed!", message.channel);
-```
-
-- Success embed:
-```
-message.success("This is a success embed!", message.channel);
-```
-
-## logs
-- Message deleted <br />
-Notify me when a message is deleted
-```
-client.messageDelete(ID);
-```
-Enter the ID of the logs channel at ID
-
-- Message updated <br />
-Notify me when a message is edited
-```
-client.messageUpdate(ID);
-```
-Enter the ID of the logs channel at ID
-
-- Ban add <br />
-Notify me when someone gets banned
-```
-client.banAdd(ID);
-```
-Enter the ID of the logs channel at ID
-
-- Ban remove <br />
-Notify me when someone is no longer banned
-```
-client.banRemove(ID);
-```
-Enter the ID of the logs channel at ID
-
-## Other
-- getMember():
-```
-message.getMember(args[0]);
-```
-
-- getChannel():
-```
-message.getChannel(args[0]);
-```
-
-- getRole():
-```
-message.getRole(args[0]);
-```
-
-- isAdmin():
-```
-message.member.isAdmin();
-```
-
-- isOwner():
-```
-message.member.isOwner(message);
-```
-
-# 📑 License
+# 📑- License
 This project has an <a href="https://github.com/DotwoodMedia/dotwood.js/blob/main/LICENSE">Apache 2.0</a> license

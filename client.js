@@ -5,21 +5,25 @@ class DotwoodClient extends Discord.Client {
     constructor(settings = {}) {
         super(settings);
 
-        this.config = require("./configuration")(settings);
-        this.functions = require("./util/functions");
+        this.config = require("./configs/client")(settings);
+        this.messageFunctions = require("./util/messageFunctions");
+        this.interactionFunctions = require("./util/interactionFunctions");
         this.handler = require("./util/handlers");
 
+        require("./util/clientFunctions")(this);
+
         this.config.token = this.config.token ? this.config.token : undefined;
-        if (this.config.token == undefined || this.config.token == "") return console.log(chalk.red(chalk.bold("(Dotwood.js)") + " Bot token is required!"));
+        if (this.config.token == undefined || this.config.token == "") throw new Error(`Bot token is required!`);
+
+        this.config.id = this.config.id ? this.config.id : undefined;
+        if (this.config.id == undefined || this.config.id == "") throw new Error(`Bot id is required!`);
 
         this.config.prefix = this.config.prefix ? this.config.prefix : undefined;
-        if (this.config.prefix == undefined || this.config.prefix == "") return console.log(chalk.red(chalk.bold("(Dotwood.js)") + " Bot prefix is required!"));
-
-        if (this.config.commands == true) this.commands = this.handler.loadCommands();
-        if (this.config.events == true) this.handler.loadEvents();
+        if (this.config.prefix == undefined || this.config.prefix == "") throw new Error(`Bot prefix is required!`);
 
         super.on("ready", () => {
-            console.log(chalk.green(`${this.user.username} is ready to use! Loaded ${this.commands.size} commands`));
+            if (!this.config.commands) console.log(chalk.green(`${this.user.username} is ready to use on ${this.getGuilds().size} servers!`));
+            if (this.config.commands) console.log(chalk.green(`${this.user.username} is ready to use on ${this.getGuilds().size} servers! Loaded ${this.commands.size} commands`));
 
             setInterval(() => {
                 let text = this.config.status;
@@ -29,52 +33,48 @@ class DotwoodClient extends Discord.Client {
             }, 50000)
         });
 
-        const messageEvent = require(`./events/message.js`);
-        this.on("message", messageEvent.bind(null, this));
+        if (this.config.commands) this.commands = this.handler.loadCommands(this.config.commands);
+        if (this.config.events) this.handler.loadEvents(this.config.events, this);
+        if (this.config.slashcommands) this.slashCommands = this.handler.loadSlashCommands(this.config.slashcommands, this);
+
+        const messageEvent = require(`dotwood.js/events/messageCreate`);
+        this.on("messageCreate", messageEvent.bind(null, this));
+
+        const interactionEvent = require(`dotwood.js/events/interactionCreate`);
+        this.on("interactionCreate", interactionEvent.bind(null, this));
     }
 
     async login() {
         this.handler.startup();
+
         await super.login(this.config.token);
+
+        this.config.id = this.user.id;
     }
 
-    async destroy() {
-        return this.destroy();
-    }
-
-    async getGuilds() {
+    getGuilds() {
         return this.guilds.cache;
     }
 
-    async messageDelete(channelID) {
-        this.on("messageDelete", async (message) => {
-            const channel = this.channels.cache.get(channelID);
-            require("./events/messageDelete.js")(this, message, channel);
-        });
+    setPrefix(prefix) {
+        this.config.prefix = prefix;
+        return this;
     }
 
-    async messageUpdate(channelID) {
-        this.on("messageUpdate", async (oldMessage, newMessage) => {
-            const channel = this.channels.cache.get(channelID);
-            require("./events/messageUpdate.js")(this, oldMessage, newMessage, channel);
-        });
+    setStatus(status) {
+        this.config.status = status;
+        return this;
     }
 
-    async banAdd(channelID) {
-        this.on("guildBanAdd", async (guild, user) => {
-            const channel = this.channels.cache.get(channelID);
-            require("./events/guildBanAdd.js")(this, guild, user, channel);
-        });
+    setStatusType(statusType) {
+        this.config.statusType = statusType;
+        return this;
     }
 
-    async banRemove(channelID) {
-        this.on("guildBanRemove", async (guild, user) => {
-            const channel = this.channels.cache.get(channelID);
-            require("./events/guildBanRemove.js")(this, guild, user, channel);
-        });
+    setEmbedColor(color) {
+        this.config.embedColor = color;
+        return this;
     }
 }
 
 module.exports = DotwoodClient;
-
-// © Dotwood Media | All rights reserved
