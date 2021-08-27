@@ -31,6 +31,15 @@ module.exports = {
                 })
             });
 
+            fs.readdirSync(`.${map}`).forEach(dirs => {
+                const commands = fs.readdirSync(`${process.cwd()}${map}/${dirs}`).filter(files => files.endsWith('.js'));
+        
+                for (const file of commands) {
+                    const command = require(`${process.cwd()}${map}/${dirs}/${file}`);
+                    commands.set(command.name.toLowerCase(), command);
+                };
+            });
+
             return commands;
         }
         catch {

@@ -1,6 +1,6 @@
 {
   "name": "dotwood.js",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "This framework makes creating a bot much easier! With this module you can create a good basis for bot",
   "main": "index.js",
   "scripts": {
