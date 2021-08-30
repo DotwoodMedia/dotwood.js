@@ -32,9 +32,9 @@ module.exports = {
             });
 
             fs.readdirSync(`.${map}`).forEach(dirs => {
-                const commands = fs.readdirSync(`${process.cwd()}${map}/${dirs}`).filter(files => files.endsWith('.js'));
-        
-                for (const file of commands) {
+                const commandsFile = fs.readdirSync(`${process.cwd()}${map}/${dirs}`).filter(files => files.endsWith('.js'));
+
+                for (const file of commandsFile) {
                     const command = require(`${process.cwd()}${map}/${dirs}/${file}`);
                     commands.set(command.name.toLowerCase(), command);
                 };
@@ -73,7 +73,7 @@ module.exports = {
 
         fs.readdirSync(`.${map}`).forEach(dirs => {
             const commandFiles = fs.readdirSync(`.${map}`).filter(files => files.endsWith('.js'));
-    
+
             console.log(`\x1b[33mLoaded \x1b[35minteraction \x1b[34m${commandFiles}\x1b[33m \x1b[32msuccessfully \u001b[0m`)
             for (const file of commandFiles) {
                 const command = require(`${process.cwd()}/${map}/${file}`);
