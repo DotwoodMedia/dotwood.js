@@ -35,7 +35,9 @@ class DotwoodClient extends Discord.Client {
 
         if (this.config.commands) this.commands = this.handler.loadCommands(this.config.commands);
         if (this.config.events) this.handler.loadEvents(this.config.events, this);
-        if (this.config.slashcommands) this.slashCommands = this.handler.loadSlashCommands(this.config.slashcommands, this);
+        if (this.config.slashcommands && (this.config.slashcommandsType && this.config.slashcommandsType == "ALL")) this.slashCommands = this.handler.loadSlashCommands(this.config.slashcommands, this);
+        if (this.config.slashcommands && (this.config.slashcommandsType && this.config.slashcommandsType !== "ALL")) this.slashCommands = this.handler.loadGuildSlashCommands(this.config.slashcommands, this.config.slashcommandsType, this);
+        if (this.config.slashcommands && !this.config.slashcommandsType) throw new Error(`Slash commands type is required!`);
 
         const messageEvent = require(`dotwood.js/events/messageCreate`);
         this.on("messageCreate", messageEvent.bind(null, this));

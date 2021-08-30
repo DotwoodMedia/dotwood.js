@@ -97,6 +97,39 @@ module.exports = {
 
         return commandsCol;
     },
+
+    loadGuildSlashCommands: function (map, id, client) {
+        const commands = [];
+        commandsCol = new Discord.Collection();
+
+        console.log("=============== Interactions ===============");
+
+        fs.readdirSync(`.${map}`).forEach(dirs => {
+            const commandFiles = fs.readdirSync(`.${map}`).filter(files => files.endsWith('.js'));
+
+            console.log(`\x1b[33mLoaded \x1b[35minteraction \x1b[34m${commandFiles}\x1b[33m \x1b[32msuccessfully \u001b[0m`)
+            for (const file of commandFiles) {
+                const command = require(`${process.cwd()}/${map}/${file}`);
+                commandsCol.set(command.data.name, command);
+                commands.push(command.data);
+            };
+
+            const rest = new REST({ version: '9' }).setToken(client.config.token);
+
+            (async () => {
+                try {
+                    await rest.put(
+                        Routes.applicationGuildCommands(client.config.id, id),
+                        { body: commands },
+                    );
+                } catch (error) {
+                    console.error(error);
+                }
+            })();
+        });
+
+        return commandsCol;
+    },
 }
 
 // © Dotwood Media | All rights reserved

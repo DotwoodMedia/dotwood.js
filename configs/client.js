@@ -7,6 +7,7 @@ module.exports = (config) => {
         statusType: config.statusType !== undefined ? config.statusType.toUpperCase() : "PLAYING",
         embedColor: config.embedColor || "#0000ff",
         slashcommands: config.slashcommands,
+        slashcommandsType: config.slashcommandsType,
         commands: config.commands,
         events: config.events
     };
