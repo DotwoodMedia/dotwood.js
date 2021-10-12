@@ -32,18 +32,21 @@ module.exports = {
             });
 
             fs.readdirSync(`.${map}`).forEach(dirs => {
-                const commandsFile = fs.readdirSync(`${process.cwd()}${map}/${dirs}`).filter(files => files.endsWith('.js'));
+                try {
+                    const commandsFile = fs.readdirSync(`${process.cwd()}${map}/${dirs}`).filter(files => files.endsWith('.js'));
 
-                for (const file of commandsFile) {
-                    const command = require(`${process.cwd()}${map}/${dirs}/${file}`);
-                    commands.set(command.name.toLowerCase(), command);
-                };
+                    for (const file of commandsFile) {
+                        const command = require(`${process.cwd()}${map}/${dirs}/${file}`);
+                        commands.set(command.name.toLowerCase(), command);
+                    };
+                }
+                catch { }
             });
 
             return commands;
         }
         catch {
-            console.log(chalk.red(`No map`, chalk.bold(`${map}`), `found`))
+            console.log(chalk.bold(`[ Dotwood.js ]`), chalk.red(`No map`, chalk.bold(`${map}`), `found`))
         }
     },
 
@@ -56,7 +59,7 @@ module.exports = {
                 return;
             }
 
-            console.log(chalk.green(`Loaded `, chalk.bold(`${events.length} events `), `of `, chalk.bold(`${dirs} `), `successfully`))
+            console.log(chalk.bold(`[ Dotwood.js ]`), chalk.green(`Loaded `, chalk.bold(`${events.length} events `), `of `, chalk.bold(`${dirs} `), `successfully`))
 
             for (const file of events) {
                 const event = require(`${process.cwd()}${map}/${dirs}/${file}`);
@@ -74,7 +77,7 @@ module.exports = {
         fs.readdirSync(`.${map}`).forEach(dirs => {
             const commandFiles = fs.readdirSync(`.${map}`).filter(files => files.endsWith('.js'));
 
-            console.log(`\x1b[33mLoaded \x1b[35minteraction \x1b[34m${commandFiles}\x1b[33m \x1b[32msuccessfully \u001b[0m`)
+            console.log(chalk.bold(`[ Dotwood.js ]`), `\x1b[33mLoaded \x1b[35minteraction \x1b[34m${commandFiles}\x1b[33m \x1b[32msuccessfully \u001b[0m`)
             for (const file of commandFiles) {
                 const command = require(`${process.cwd()}/${map}/${file}`);
                 commandsCol.set(command.data.name, command);
@@ -107,7 +110,7 @@ module.exports = {
         fs.readdirSync(`.${map}`).forEach(dirs => {
             const commandFiles = fs.readdirSync(`.${map}`).filter(files => files.endsWith('.js'));
 
-            console.log(`\x1b[33mLoaded \x1b[35minteraction \x1b[34m${commandFiles}\x1b[33m \x1b[32msuccessfully \u001b[0m`)
+            console.log(chalk.bold(`[ Dotwood.js ]`), `\x1b[33mLoaded \x1b[35minteraction \x1b[34m${commandFiles}\x1b[33m \x1b[32msuccessfully \u001b[0m`)
             for (const file of commandFiles) {
                 const command = require(`${process.cwd()}/${map}/${file}`);
                 commandsCol.set(command.data.name, command);
@@ -129,6 +132,21 @@ module.exports = {
         });
 
         return commandsCol;
+    },
+
+    checkForUpdates: function () {
+        const package = require('../../../package.json');
+        const vLatest = require('../package.json').version;
+
+        if (package.dependencies.dotwood.js) {
+			if (vLatest !== package.dependencies.dotwood.js.slice(1)) {
+				console.log(chalk.bold(`[ Dotwood.js ]`), `new version of Dotwood.js is available! run ${chalk.green('npm i dotwood.js@latest')} to update`)
+			}
+		} else if (package.devDependencies.dotwood.js) {
+			if (vLatest !== package.devDependencies.dotwood.js.slice(1)) {
+				onsole.log(chalk.bold(`[ Dotwood.js ]`), `new version of Dotwood.js is available! run ${chalk.green('npm i dotwood.js@latest')} to update`)
+			}
+		}
     },
 }
 

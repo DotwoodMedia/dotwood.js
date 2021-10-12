@@ -11,6 +11,7 @@ class DotwoodClient extends Discord.Client {
         this.handler = require("./util/handlers");
 
         require("./util/clientFunctions")(this);
+        this.handler.checkForUpdates();
 
         this.config.token = this.config.token ? this.config.token : undefined;
         if (this.config.token == undefined || this.config.token == "") throw new Error(`Bot token is required!`);
