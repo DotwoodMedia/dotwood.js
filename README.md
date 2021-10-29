@@ -7,7 +7,7 @@ This framework makes creating a bot much easier! With this module you can create
 # ℹ️ - About
 
 Dotwood.js makes creating a bot even easier! With a few simple lines of code you can build your own bot very quickly
-- Discord.js version: V13.1.0
+- Discord.js version: V13.2.0
 - Simple functions
 
 # 💻 - Installation

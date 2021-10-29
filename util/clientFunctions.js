@@ -1,6 +1,5 @@
 const Discord = require('discord.js');
 const Voice = require('@discordjs/voice');
-const { createDiscordJSAdapter } = require('./VoiceAdapter');
 
 module.exports = (client) => {
     client.awaitReply = async (msg, limit, user) => {
@@ -40,7 +39,7 @@ module.exports = (client) => {
         const connection = Voice.joinVoiceChannel({
             channelId: channel.id,
             guildId: channel.guild.id,
-            adapterCreator: createDiscordJSAdapter(channel),
+            adapterCreator: channel.guild.voiceAdapterCreator,
         });
 
         try {

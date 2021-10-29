@@ -1,6 +1,6 @@
 {
   "name": "dotwood.js",
-  "version": "2.1.0",
+  "version": "2.1.2",
   "description": "This framework makes creating a bot much easier! With this module you can create a good basis for bot",
   "main": "index.js",
   "scripts": {
@@ -26,7 +26,7 @@
     "@discordjs/voice": "^0.6.0",
     "chalk": "^4.1.1",
     "discord-api-types": "^0.22.0",
-    "discord.js": "^13.1.0",
+    "discord.js": "^13.2.0",
     "fs": "0.0.1-security",
     "node-fetch": "^2.6.1"
   }
