@@ -138,15 +138,15 @@ module.exports = {
         const package = require('../../../package.json');
         const vLatest = require('../package.json').version;
 
-        if (package.dependencies.dotwood.js) {
-			if (vLatest !== package.dependencies.dotwood.js.slice(1)) {
-				console.log(chalk.bold(`[ Dotwood.js ]`), `new version of Dotwood.js is available! run ${chalk.green('npm i dotwood.js@latest')} to update`)
-			}
-		} else if (package.devDependencies.dotwood.js) {
-			if (vLatest !== package.devDependencies.dotwood.js.slice(1)) {
-				onsole.log(chalk.bold(`[ Dotwood.js ]`), `new version of Dotwood.js is available! run ${chalk.green('npm i dotwood.js@latest')} to update`)
-			}
-		}
+        if (package.dependencies['dotwood.js']) {
+            if (vLatest !== package.dependencies['dotwood.js'].slice(1)) {
+                console.log(chalk.bold(`[ Dotwood.js ]`), `new version of Dotwood.js is available! run ${chalk.green('npm i dotwood.js@latest')} to update`)
+            }
+        } else if (package.devDependencies['dotwood.js']) {
+            if (vLatest !== package.devDependencies['dotwood.js'].slice(1)) {
+                onsole.log(chalk.bold(`[ Dotwood.js ]`), `new version of Dotwood.js is available! run ${chalk.green('npm i dotwood.js@latest')} to update`)
+            }
+        }
     },
 }
 
