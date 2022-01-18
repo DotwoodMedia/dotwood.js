@@ -1,4 +1,4 @@
-| :exclamation:  We are currently working on a new better version!   |
+| :exclamation:  We are currently working on a new better version!  :exclamation: |
 |-----------------------------------------|
 
 # Dotwood.js
