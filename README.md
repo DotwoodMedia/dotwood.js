@@ -1,3 +1,5 @@
+! We are currently working on a new better version!
+
 # Dotwood.js
 This framework makes creating a bot much easier! With this module you can create a good basis for bot
 
