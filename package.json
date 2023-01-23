@@ -1,8 +1,9 @@
 {
   "name": "dotwood.js",
-  "version": "2.1.3",
+  "version": "3.0.0",
   "description": "This framework makes creating a bot much easier! With this module you can create a good basis for bot",
-  "main": "index.js",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
     "build": "tsc",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
@@ -13,6 +14,9 @@
     "version": "npm run format && git add -A src",
     "postversion": "git push && git push --tags"
   },
+  "files": [
+    "lib/**/*"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/DotwoodMedia/dotwood.js.git"
@@ -20,7 +24,7 @@
   "keywords": [
     "discord.js",
     "framework",
-    "dbot"
+    "typescript"
   ],
   "author": "Dotwood Media",
   "license": "Apache",
