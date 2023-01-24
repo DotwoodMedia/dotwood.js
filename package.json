@@ -33,6 +33,7 @@
   },
   "homepage": "https://github.com/DotwoodMedia/dotwood.js#readme",
   "dependencies": {
+    "cli-spinner": "^0.2.10",
     "discord.js": "^14.7.1"
   },
   "devDependencies": {
