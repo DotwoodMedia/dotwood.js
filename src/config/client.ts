@@ -1,6 +1,6 @@
 import { PresenceStatus } from "discord.js";
 
-export type IClientConfig = {
+export type ClientConfig = {
     id: string;
     guildId: string;
     public: boolean;
@@ -20,7 +20,7 @@ export type IClientConfig = {
     }
 }
 
-export default (config: IClientConfig): IClientConfig => {
+export default (config: ClientConfig): ClientConfig => {
     return {
         id: config.id,
         guildId: config.guildId,
