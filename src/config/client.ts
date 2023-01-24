@@ -4,17 +4,17 @@ export type IClientConfig = {
     id: string;
     guildId: string;
     public: boolean;
-    colors?: {
+    colors: {
         brand: string;
         success: string;
         error: string;
         warning: string;
     };
-    status?: {
+    status: {
         content: string[];
         type: PresenceStatus;
     };
-    dirs?: {
+    dirs: {
         commands: string;
         events: string;
     }
