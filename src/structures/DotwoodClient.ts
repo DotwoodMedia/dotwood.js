@@ -18,7 +18,8 @@ export class DotwoodClient extends Client {
         if (!this.config?.guildId && !this.config.public) throw new Error(`Guild id is required for private bots!`);
 
         this.loadCommands(token);
-        // await super.login(token);
+
+        await super.login(token);
     }
 
     public get getGuilds() {
