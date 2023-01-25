@@ -1,7 +1,8 @@
 import { Client, Collection, REST, Routes, type ClientOptions } from "discord.js";
-import config, { type ClientConfig } from "../config/client";
-import { join } from "path";
+import { join } from "node:path";
 import { existsSync, readdirSync, statSync } from "node:fs";
+
+import config, { type ClientConfig } from "../config/client";
 
 export class DotwoodClient extends Client {
     public config: ClientConfig | null = null;
