@@ -1,20 +1,20 @@
 import { PresenceStatus } from "discord.js";
 
 export type ClientConfig = {
-    id: string;
-    guildId: string;
-    public: boolean;
-    colors: {
+    id?: string;
+    guildId?: string;
+    public?: boolean;
+    colors?: {
         brand: string;
         success: string;
         error: string;
         warning: string;
     };
-    status: {
+    status?: {
         content: string[];
         type: PresenceStatus;
     };
-    dirs: {
+    dirs?: {
         commands: string;
         events: string;
     }
