@@ -1,22 +1,22 @@
-import { Client, Collection, REST, Routes, type ClientOptions } from "discord.js";
+import { Client, Collection, REST, Routes, type ClientOptions, PresenceStatus } from "discord.js";
 import { join } from "node:path";
 import { existsSync, readdirSync, statSync } from "node:fs";
 
 import config, { type ClientConfig } from "../config/client";
 
 export class DotwoodClient extends Client {
-    public config: ClientConfig | null = null;
+    public readonly data: ClientConfig;
     public commands: any = new Collection();
 
-    constructor(options: ClientOptions | ClientConfig) {
-        super(options as ClientOptions);
+    constructor(data: ClientOptions | ClientConfig = {}) {
+        super(data as ClientOptions);
 
-        this.config = config(options as ClientConfig) ?? null;
+        this.data = config(data as ClientConfig) ?? null;
     }
 
     public override async login(token: string): Promise<any> {
-        if (!this.config?.id) throw new Error(`Bot id is required!`);
-        if (!this.config?.guildId && !this.config.public) throw new Error(`Guild id is required for private bots!`);
+        if (!this.data.id) throw new Error(`Bot id is required!`);
+        if (!this.data.guildId && !this.data.public) throw new Error(`Guild id is required for private bots!`);
 
         this.loadCommands(token);
 
@@ -27,70 +27,70 @@ export class DotwoodClient extends Client {
         return this.guilds.cache;
     }
 
-    public setId(id: ClientConfig['id']): ClientConfig {
-        this.config!.id = id;
-        return this.config as ClientConfig;
+    public setId(id: string): ClientConfig {
+        this.data.id = id ?? undefined;
+        return this.data;
     }
 
-    public setGuildId(guildId: ClientConfig['guildId']): ClientConfig {
-        this.config!.guildId = guildId;
-        return this.config as ClientConfig;
+    public setGuildId(guildId: string): ClientConfig {
+        this.data.guildId = guildId ?? undefined;
+        return this.data;
     }
 
-    public isPublic(value: ClientConfig['public']): ClientConfig {
-        this.config!.public = value;
-        return this.config as ClientConfig;
+    public isPublic(value: boolean): ClientConfig {
+        this.data.public = value ?? undefined;
+        return this.data;
     }
 
     public setColors(colors: ClientConfig['colors']): ClientConfig {
-        this.config!.colors = colors;
-        return this.config as ClientConfig;
+        this.data.colors = colors ?? undefined;
+        return this.data;
     }
 
-    public setBrandColor(color: ClientConfig['colors']['brand']): ClientConfig {
-        this.config!.colors.brand = color;
-        return this.config as ClientConfig;
+    public setBrandColor(color: string): ClientConfig {
+        this.data.colors!.brand = color ?? undefined;
+        return this.data;
     }
 
-    public setSuccessColor(color: ClientConfig['colors']['success']): ClientConfig {
-        this.config!.colors.success = color;
-        return this.config as ClientConfig;
+    public setSuccessColor(color: string): ClientConfig {
+        this.data.colors!.success = color ?? undefined;
+        return this.data;
     }
 
-    public setErrorColor(color: ClientConfig['colors']['error']): ClientConfig {
-        this.config!.colors.error = color;
-        return this.config as ClientConfig;
+    public setErrorColor(color: string): ClientConfig {
+        this.data.colors!.error = color ?? undefined;
+        return this.data;
     }
 
-    public setWarningColor(color: ClientConfig['colors']['warning']): ClientConfig {
-        this.config!.colors.warning = color;
-        return this.config as ClientConfig;
+    public setWarningColor(color: string): ClientConfig {
+        this.data.colors!.warning = color ?? undefined;
+        return this.data;
     }
 
-    public setStatusContent(...content: ClientConfig['status']['content']): ClientConfig {
-        this.config!.status.content = content;
-        return this.config as ClientConfig;
+    public setStatusContent(...content: string[]): ClientConfig {
+        this.data.status!.content = content ?? [];
+        return this.data;
     }
 
-    public setStatusType(type: ClientConfig['status']['type']): ClientConfig {
-        this.config!.status.type = type;
-        return this.config as ClientConfig;
+    public setStatusType(type: PresenceStatus): ClientConfig {
+        this.data.status!.type = type ?? undefined;
+        return this.data;
     }
 
-    public setCommandsDir(dir: ClientConfig['dirs']['commands']): ClientConfig {
-        this.config!.dirs.commands = dir;
-        return this.config as ClientConfig;
+    public setCommandsDir(dir: string): ClientConfig {
+        this.data.dirs!.commands = dir ?? undefined;
+        return this.data;
     }
 
-    public setEventsDir(dir: ClientConfig['dirs']['events']): ClientConfig {
-        this.config!.dirs.events = dir;
-        return this.config as ClientConfig;
+    public setEventsDir(dir: string): ClientConfig {
+        this.data.dirs!.events = dir ?? undefined;
+        return this.data;
     }
 
     private loadCommands(token: string) {
-        if (!this.config?.dirs.commands) throw new Error(`No commands map path found!`);
+        if (!this.data.dirs?.commands) throw new Error(`No commands map path found!`);
 
-        const commandsPath = join(process.cwd(), this.config!.dirs.commands);
+        const commandsPath = join(process.cwd(), this.data.dirs.commands);
         if (!existsSync(commandsPath)) throw new Error(`No folder was found with this path`);
 
         const commands: any = [];
@@ -118,7 +118,7 @@ export class DotwoodClient extends Client {
         (async () => {
             try {
                 const data = await rest.put(
-                    this.config?.public ? Routes.applicationCommands(this.config!.id) : Routes.applicationGuildCommands(this.config!.id, this.config!.guildId),
+                    this.data.public ? Routes.applicationCommands(this.data.id as string) : Routes.applicationGuildCommands(this.data.id as string, this.data.guildId as string),
                     { body: commands },
                 );
             } catch (error) {
