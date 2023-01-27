@@ -1,26 +1,23 @@
-| :exclamation:  We are currently working on a new better version!  :exclamation: |
-|-----------------------------------------|
+| :exclamation: Dotwood.js V3 is not published yet!  :exclamation: |
+| ---------------------------------------------------------------- |
 
-# Dotwood.js
-This framework makes creating a bot much easier! With this module you can create a good basis for bot
 
+# Dotwood.js - Discord Bot Framework
 [![downloadsBadge](https://img.shields.io/npm/dt/dotwood.js?style=for-the-badge)](https://npmjs.com/dotwood.js)
 [![versionBadge](https://img.shields.io/npm/v/dotwood.js?style=for-the-badge)](https://npmjs.com/dotwood.js)
 
-# ℹ️ - About
+Dotwood.js is a framework for building Discord bots using JavaScript and the [discord.js](https://github.com/discordjs/discord.js) library. It aims to provide an easy and organized way to create, manage, and deploy your bots.
 
-Dotwood.js makes creating a bot even easier! With a few simple lines of code you can build your own bot very quickly
-- Discord.js version: V13.2.0
-- Simple functions
-
+- **Discord.js:** 14.7.1 
+- **Node.js:** 16.9.0 or newer
 # 💻 - Installation
-**Node.js 16.6.0 or newer is required.**
+**Node.js 16.9.0 or newer is required.**
 
 ```
-npm install dotwood.js
+npm install dotwood.js@dev discord.js@14.x
 ```
 
-# 📖 - Example
+# 📖 - Example (outdated)
 ```
 const Dotwood = require("dotwood.js");
 const Discord = require('discord.js');
@@ -43,8 +40,9 @@ client.login();
 ```
 
 # 🔗 - Links
-- Discord: https://discord.gg/dbot
+- Support server: #SOON
 - Documentation: https://docs.dotwood.media/
+- Website Dotwood Media: https://dotwood.media/
 
 # 📑- License
 This project has an <a href="https://github.com/DotwoodMedia/dotwood.js/blob/main/LICENSE">Apache 2.0</a> license
