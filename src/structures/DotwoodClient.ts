@@ -19,6 +19,7 @@ export class DotwoodClient extends Client {
         if (!this.data.guildId && !this.data.public) throw new Error(`Guild id is required for private bots!`);
 
         this.loadCommands(token);
+        this.loadEvents();
 
         await super.login(token);
     }
@@ -87,7 +88,7 @@ export class DotwoodClient extends Client {
         return this.data;
     }
 
-    private loadCommands(token: string) {
+    private loadCommands(token: string): void {
         if (!this.data.dirs?.commands) throw new Error(`No commands map path found!`);
 
         const commandsPath = join(process.cwd(), this.data.dirs.commands);
@@ -125,5 +126,28 @@ export class DotwoodClient extends Client {
                 console.error(error);
             }
         })();
+    }
+
+    private loadEvents(): void {
+        if (!this.data.dirs?.events) throw new Error(`No events map path found!`);
+
+        const eventsPath = join(process.cwd(), this.data.dirs.commands);
+        if (!existsSync(eventsPath)) throw new Error(`No folder was found with this path`);
+
+        readdirSync(eventsPath).forEach(dir => {
+            const dirPath = join(eventsPath, dir);
+            const stat = statSync(dirPath);
+            if (stat.isFile()) {
+                const event = require(`${process.cwd()}/${dir}`);
+                this.on(dir.split(".")[0], event.bind(null, this));
+            }
+            else {
+                const events = readdirSync(`${eventsPath}/${dir}`).filter(files => files.endsWith('.js') || files.endsWith('.ts'));
+                for (const file of events) {
+                    const event = require(`${process.cwd()}/${dir}/${file}`);
+                    this.on(file.split(".")[0], event.bind(null, this));
+                };
+            }
+        })
     }
 }
