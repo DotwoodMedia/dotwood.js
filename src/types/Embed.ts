@@ -17,7 +17,7 @@ type CustomEmbed = {
 
 type EmbedBase<T extends EmbedType, D> = {
     type?: T;
-    data: D;
+    data?: D;
 }
 
 export type Embed =
