@@ -1,4 +1,4 @@
-import { Client, Collection, REST, Routes, type ClientOptions, PresenceStatus } from "discord.js";
+import { Client, Collection, REST, Routes, type ClientOptions, PresenceStatus, Embed } from "discord.js";
 import { join } from "node:path";
 import { existsSync, readdirSync, statSync } from "node:fs";
 
@@ -6,7 +6,7 @@ import config, { type ClientConfig } from "../config/client";
 
 export class DotwoodClient extends Client {
     public readonly data: ClientConfig;
-    public commands: any = new Collection();
+    public readonly commands: any = new Collection();
 
     constructor(data: ClientOptions | ClientConfig = {}) {
         super(data as ClientOptions);
